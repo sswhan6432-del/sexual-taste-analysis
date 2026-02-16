@@ -3,12 +3,14 @@
 import { motion } from "framer-motion";
 import { archetypeMap } from "@/lib/types";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
 
 interface CompatibleTypesProps {
   archetype: Archetype;
 }
 
 export default function CompatibleTypes({ archetype }: CompatibleTypesProps) {
+  const locale = useQuizStore((s) => s.locale);
   const compatible = archetype.compatibleTypes
     .map((id) => archetypeMap[id])
     .filter(Boolean);
@@ -35,17 +37,17 @@ export default function CompatibleTypes({ archetype }: CompatibleTypesProps) {
           >
             <div className="flex items-baseline justify-between">
               <p className="text-base font-normal text-text-primary">
-                {type.name}
+                {locale === "en" ? type.nameEn : type.name}
               </p>
               <p className="text-[10px] font-normal uppercase tracking-wider text-gold/30">
                 Type {type.numeral}
               </p>
             </div>
             <p className="mt-0.5 text-xs font-normal italic text-text-muted">
-              {type.nameEn}
+              {locale === "en" ? type.name : type.nameEn}
             </p>
             <p className="mt-2 text-sm font-normal leading-relaxed text-text-secondary">
-              {type.description}
+              {locale === "en" ? type.descriptionEn : type.description}
             </p>
           </motion.div>
         ))}

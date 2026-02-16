@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Question } from "@/lib/questions";
+import { useQuizStore } from "@/store/quizStore";
 
 interface MultipleChoiceProps {
   question: Question;
@@ -14,6 +15,7 @@ export default function MultipleChoice({
   onAnswer,
 }: MultipleChoiceProps) {
   const [selected, setSelected] = useState<string | null>(null);
+  const locale = useQuizStore((s) => s.locale);
 
   const handleSelect = (choiceId: string, scores: Record<string, number>) => {
     setSelected(choiceId);
@@ -29,7 +31,7 @@ export default function MultipleChoice({
         animate={{ opacity: 1, y: 0 }}
         className="mb-10 text-center text-xl font-normal leading-relaxed text-text-primary sm:text-2xl"
       >
-        {question.text}
+        {locale === "en" && question.textEn ? question.textEn : question.text}
       </motion.h3>
 
       <div className="space-y-3">
@@ -52,7 +54,7 @@ export default function MultipleChoice({
               {letters[index]}
             </span>
             <span className="text-sm font-normal text-text-primary">
-              {choice.text}
+              {locale === "en" && choice.textEn ? choice.textEn : choice.text}
             </span>
           </motion.button>
         ))}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Question } from "@/lib/questions";
+import { useQuizStore } from "@/store/quizStore";
 
 interface CardSelectProps {
   question: Question;
@@ -11,6 +12,7 @@ interface CardSelectProps {
 
 export default function CardSelect({ question, onAnswer }: CardSelectProps) {
   const [selected, setSelected] = useState<string | null>(null);
+  const locale = useQuizStore((s) => s.locale);
 
   const handleSelect = (choiceId: string, scores: Record<string, number>) => {
     setSelected(choiceId);
@@ -24,7 +26,7 @@ export default function CardSelect({ question, onAnswer }: CardSelectProps) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-10 text-center text-xl font-normal leading-relaxed text-text-primary sm:text-2xl"
       >
-        {question.text}
+        {locale === "en" && question.textEn ? question.textEn : question.text}
       </motion.h3>
 
       <div
@@ -50,7 +52,7 @@ export default function CardSelect({ question, onAnswer }: CardSelectProps) {
             }`}
           >
             <span className="text-sm font-normal leading-relaxed text-text-primary">
-              {choice.text}
+              {locale === "en" && choice.textEn ? choice.textEn : choice.text}
             </span>
           </motion.button>
         ))}

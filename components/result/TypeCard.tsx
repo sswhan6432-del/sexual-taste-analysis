@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
 
 interface TypeCardProps {
   archetype: Archetype;
@@ -9,6 +10,7 @@ interface TypeCardProps {
 }
 
 export default function TypeCard({ archetype, similarity }: TypeCardProps) {
+  const locale = useQuizStore((s) => s.locale);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -31,7 +33,7 @@ export default function TypeCard({ archetype, similarity }: TypeCardProps) {
         transition={{ delay: 0.4 }}
         className="mb-1 text-3xl font-normal text-gold sm:text-4xl"
       >
-        {archetype.name}
+        {locale === "en" ? archetype.nameEn : archetype.name}
       </motion.h2>
 
       <motion.p
@@ -40,7 +42,7 @@ export default function TypeCard({ archetype, similarity }: TypeCardProps) {
         transition={{ delay: 0.5 }}
         className="mb-6 text-sm font-normal italic text-text-muted"
       >
-        {archetype.nameEn}
+        {locale === "en" ? archetype.name : archetype.nameEn}
       </motion.p>
 
       <motion.div
@@ -65,7 +67,7 @@ export default function TypeCard({ archetype, similarity }: TypeCardProps) {
         transition={{ delay: 0.7 }}
         className="mb-8 text-base font-normal leading-relaxed text-text-secondary"
       >
-        {archetype.description}
+        {locale === "en" ? archetype.descriptionEn : archetype.description}
       </motion.p>
 
       <motion.p
@@ -74,7 +76,7 @@ export default function TypeCard({ archetype, similarity }: TypeCardProps) {
         transition={{ delay: 0.8 }}
         className="text-sm font-normal leading-loose text-text-muted"
       >
-        {archetype.detailDescription}
+        {locale === "en" ? archetype.detailDescriptionEn : archetype.detailDescription}
       </motion.p>
     </motion.div>
   );

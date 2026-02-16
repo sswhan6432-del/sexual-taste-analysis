@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import { dimensions } from "@/lib/dimensions";
 import type { Archetype } from "@/lib/types";
 import type { BdsmProfile, DimensionScores } from "@/lib/scoring";
+import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
+import { traitTagEnMap } from "@/lib/scoring";
 
 interface Top3Entry {
   archetype: Archetype;
@@ -32,6 +35,7 @@ export default function ViralCard({
   top3,
 }: ViralCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const locale = useQuizStore((s) => s.locale);
 
   // Dimension scores sorted by deviation from 50
   const sortedDims = dimensions
@@ -96,7 +100,11 @@ export default function ViralCard({
   }, [archetype.id]);
 
   const handleShare = useCallback(async () => {
-    const text = `${archetype.name} (${archetype.nameEn}) | ${bdsmProfile.role}\n"${bdsmProfile.headline}"\n\nSexual Taste Analysis`;
+    const name = locale === "en" ? archetype.nameEn : archetype.name;
+    const nameAlt = locale === "en" ? archetype.name : archetype.nameEn;
+    const role = locale === "en" ? bdsmProfile.roleEn : bdsmProfile.role;
+    const headline = locale === "en" ? bdsmProfile.headlineEn : bdsmProfile.headline;
+    const text = `${name} (${nameAlt}) | ${role}\n"${headline}"\n\nSexual Taste Analysis`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "Sexual Taste Analysis", text, url: window.location.origin });
@@ -139,10 +147,10 @@ export default function ViralCard({
               Type {archetype.numeral}
             </p>
             <h2 className="text-[26px] font-normal leading-tight text-gold">
-              {archetype.name}
+              {locale === "en" ? archetype.nameEn : archetype.name}
             </h2>
             <p className="mt-1 text-xs font-normal italic text-text-muted/60">
-              {archetype.nameEn}
+              {locale === "en" ? archetype.name : archetype.nameEn}
             </p>
             <p className="mt-1 text-[10px] tracking-wider text-gold/40">
               {Math.round(similarity * 100)}% match
@@ -158,10 +166,10 @@ export default function ViralCard({
               BDSM Spectrum
             </p>
             <p className="text-base font-medium text-text-primary">
-              {bdsmProfile.role}
+              {locale === "en" ? bdsmProfile.roleEn : bdsmProfile.role}
             </p>
             <p className="text-[10px] font-normal italic text-gold/40">
-              {bdsmProfile.roleEn}
+              {locale === "en" ? bdsmProfile.role : bdsmProfile.roleEn}
             </p>
 
             {/* D/s bar */}
@@ -188,7 +196,7 @@ export default function ViralCard({
           {/* Headline */}
           <div className="mb-6 border-l border-gold/20 pl-4 pr-1">
             <p className="break-keep text-xs font-normal leading-[1.8] text-text-secondary/80">
-              &ldquo;{bdsmProfile.headline}&rdquo;
+              &ldquo;{locale === "en" ? bdsmProfile.headlineEn : bdsmProfile.headline}&rdquo;
             </p>
           </div>
 
@@ -200,7 +208,7 @@ export default function ViralCard({
                   key={tag}
                   className="border border-gold/10 px-2.5 py-1 text-[10px] tracking-wider text-text-muted/60"
                 >
-                  {tag}
+                  {locale === "en" ? (traitTagEnMap[tag] ?? tag) : tag}
                 </span>
               ))}
             </div>
@@ -227,14 +235,16 @@ export default function ViralCard({
               Dimension Scores
             </p>
             <p className="mb-5 text-center text-[8px] text-text-muted/30">
-              양수 = 성향 강함 &middot; 음수 = 성향 약함
+              {t("viral.dimScoreLabel", locale)}
             </p>
 
             <div className="space-y-2.5">
               {sortedDims.map(({ dim, pct }) => {
                 const isPositive = pct >= 0;
                 const barWidth = maxAbs > 0 ? (Math.abs(pct) / maxAbs) * 100 : 0;
-                const label = isPositive ? dim.highLabel : dim.lowLabel;
+                const label = isPositive
+                  ? (locale === "en" ? dim.highLabelEn : dim.highLabel)
+                  : (locale === "en" ? dim.lowLabelEn : dim.lowLabel);
 
                 return (
                   <div key={dim.key} className="flex items-center gap-2">
@@ -274,7 +284,7 @@ export default function ViralCard({
 
                     {/* Label */}
                     <span className="w-20 text-right text-[10px] text-text-muted/50">
-                      {dim.name}
+                      {locale === "en" ? dim.nameEn : dim.name}
                     </span>
                   </div>
                 );
@@ -285,11 +295,13 @@ export default function ViralCard({
             <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1">
               {sortedDims.map(({ dim, pct }) => {
                 const isPositive = pct >= 0;
-                const label = isPositive ? dim.highLabel : dim.lowLabel;
+                const label = isPositive
+                  ? (locale === "en" ? dim.highLabelEn : dim.highLabel)
+                  : (locale === "en" ? dim.lowLabelEn : dim.lowLabel);
                 return (
                   <div key={dim.key} className="flex items-center justify-between">
                     <span className="text-[9px] text-text-muted/30">
-                      {dim.symbol}. {dim.name}
+                      {dim.symbol}. {locale === "en" ? dim.nameEn : dim.name}
                     </span>
                     <span
                       className="text-[9px]"
@@ -325,9 +337,9 @@ export default function ViralCard({
                       {i + 1}
                     </span>
                     <span className="flex-1 text-[11px] text-text-secondary/70">
-                      {entry.archetype.name}
+                      {locale === "en" ? entry.archetype.nameEn : entry.archetype.name}
                       <span className="ml-1.5 text-[9px] italic text-text-muted/35">
-                        {entry.archetype.nameEn}
+                        {locale === "en" ? entry.archetype.name : entry.archetype.nameEn}
                       </span>
                     </span>
                     <span className="text-[11px] tabular-nums text-gold/50">

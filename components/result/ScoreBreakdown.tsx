@@ -3,12 +3,15 @@
 import { motion } from "framer-motion";
 import { dimensions } from "@/lib/dimensions";
 import type { DimensionScores } from "@/lib/scoring";
+import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 
 interface ScoreBreakdownProps {
   scores: DimensionScores;
 }
 
 export default function ScoreBreakdown({ scores }: ScoreBreakdownProps) {
+  const locale = useQuizStore((s) => s.locale);
   // Convert 0-100 scale (50=neutral) to percentage deviation
   const items = dimensions
     .map((dim) => {
@@ -34,13 +37,13 @@ export default function ScoreBreakdown({ scores }: ScoreBreakdownProps) {
       {/* Legend */}
       <div className="mb-8 text-center text-[10px] leading-relaxed text-text-muted/60">
         <p>
-          <span className="text-emerald-400/80">양수</span>는 성향이 있음,{" "}
-          <span className="text-amber-400/80">음수</span>는 성향이 없음
+          <span className="text-emerald-400/80">{t("score.positive", locale)}</span>{t("score.hasTrait", locale)},{" "}
+          <span className="text-amber-400/80">{t("score.negative", locale)}</span>{t("score.noTrait", locale)}
         </p>
         <p>
-          수치가 높을수록 <span className="text-emerald-400/80">강함</span>,
-          낮을수록{" "}
-          <span className="text-amber-400/80">소프트함</span>
+          {t("score.strongNote", locale)} <span className="text-emerald-400/80">{t("score.strong", locale)}</span>,{" "}
+          {t("score.softNote", locale)}{" "}
+          <span className="text-amber-400/80">{t("score.soft", locale)}</span>
         </p>
       </div>
 
@@ -93,7 +96,7 @@ export default function ScoreBreakdown({ scores }: ScoreBreakdownProps) {
 
               {/* Dimension label */}
               <span className="w-24 text-xs text-text-secondary/70">
-                {dim.name}
+                {locale === "en" ? dim.nameEn : dim.name}
               </span>
             </motion.div>
           );
@@ -104,7 +107,9 @@ export default function ScoreBreakdown({ scores }: ScoreBreakdownProps) {
       <div className="mt-8 border-t border-white/[0.04] pt-6 space-y-2.5">
         {items.map(({ dim, pct }, index) => {
           const isPositive = pct >= 0;
-          const label = isPositive ? dim.highLabel : dim.lowLabel;
+          const label = isPositive
+            ? (locale === "en" ? dim.highLabelEn : dim.highLabel)
+            : (locale === "en" ? dim.lowLabelEn : dim.lowLabel);
           return (
             <motion.div
               key={dim.key}
@@ -116,7 +121,7 @@ export default function ScoreBreakdown({ scores }: ScoreBreakdownProps) {
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-gold/25">{dim.symbol}</span>
                 <span className="text-xs text-text-secondary/60">
-                  {dim.name}
+                  {locale === "en" ? dim.nameEn : dim.name}
                 </span>
               </div>
               <span

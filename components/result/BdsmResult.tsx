@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import type { BdsmProfile } from "@/lib/scoring";
+import { useQuizStore } from "@/store/quizStore";
 
 interface BdsmResultProps {
   profile: BdsmProfile;
 }
 
 export default function BdsmResult({ profile }: BdsmResultProps) {
+  const locale = useQuizStore((s) => s.locale);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,10 +24,10 @@ export default function BdsmResult({ profile }: BdsmResultProps) {
       {/* Role */}
       <div className="mb-6 text-center">
         <h3 className="text-2xl font-medium text-text-primary">
-          {profile.role}
+          {locale === "en" ? profile.roleEn : profile.role}
         </h3>
         <p className="mt-1 text-xs font-normal italic text-gold/40">
-          {profile.roleEn}
+          {locale === "en" ? profile.role : profile.roleEn}
         </p>
       </div>
 
@@ -47,7 +49,7 @@ export default function BdsmResult({ profile }: BdsmResultProps) {
           />
         </div>
         <p className="mt-3 text-xs font-normal leading-relaxed text-text-muted/70">
-          {profile.dsDescription}
+          {locale === "en" ? profile.dsDescriptionEn : profile.dsDescription}
         </p>
       </div>
 
@@ -71,7 +73,7 @@ export default function BdsmResult({ profile }: BdsmResultProps) {
       {/* Role description */}
       <div className="mb-6 border-l border-gold/15 pl-4">
         <p className="text-sm font-normal leading-[1.8] text-text-secondary/80">
-          {profile.roleDescription}
+          {locale === "en" ? profile.roleDescriptionEn : profile.roleDescription}
         </p>
       </div>
 

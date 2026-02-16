@@ -1,12 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useQuizStore } from "@/store/quizStore";
+import { traitTagEnMap } from "@/lib/scoring";
 
 interface TraitTagsProps {
   tags: string[];
 }
 
 export default function TraitTags({ tags }: TraitTagsProps) {
+  const locale = useQuizStore((s) => s.locale);
   if (tags.length === 0) return null;
 
   return (
@@ -29,7 +32,7 @@ export default function TraitTags({ tags }: TraitTagsProps) {
             transition={{ duration: 0.3, delay: 0.7 + i * 0.08 }}
             className="border border-gold/10 px-4 py-2 text-xs font-normal tracking-wider text-text-secondary/80 transition-colors hover:border-gold/25 hover:text-gold/60"
           >
-            {tag}
+            {locale === "en" ? (traitTagEnMap[tag] ?? tag) : tag}
           </motion.span>
         ))}
       </div>

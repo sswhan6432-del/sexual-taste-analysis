@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 import MultipleChoice from "./MultipleChoice";
 import CardSelect from "./CardSelect";
 import SliderQuestion from "./SliderQuestion";
@@ -20,6 +21,7 @@ export default function QuizContainer() {
     progressTotal,
     currentCategoryLabel,
     step,
+    locale,
   } = useQuizStore();
 
   const handleAnswer = useCallback(
@@ -52,7 +54,7 @@ export default function QuizContainer() {
             onClick={prevQuestion}
             className="mb-4 text-sm text-text-muted transition-colors hover:text-text-secondary"
           >
-            ← 이전 질문
+            {t("quiz.prev", locale)}
           </button>
         )}
 

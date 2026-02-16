@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Question } from "@/lib/questions";
+import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 
 interface SliderQuestionProps {
   question: Question;
@@ -15,6 +17,7 @@ export default function SliderQuestion({
 }: SliderQuestionProps) {
   const [value, setValue] = useState(50);
   const [confirmed, setConfirmed] = useState(false);
+  const locale = useQuizStore((s) => s.locale);
 
   const handleConfirm = () => {
     setConfirmed(true);
@@ -34,7 +37,7 @@ export default function SliderQuestion({
         animate={{ opacity: 1, y: 0 }}
         className="mb-12 text-center text-xl font-normal leading-relaxed text-text-primary sm:text-2xl"
       >
-        {question.text}
+        {locale === "en" && question.textEn ? question.textEn : question.text}
       </motion.h3>
 
       <motion.div
@@ -44,8 +47,8 @@ export default function SliderQuestion({
         className="border border-white/[0.06] p-8"
       >
         <div className="mb-8 flex items-end justify-between text-xs font-normal tracking-wider text-text-muted">
-          <span className="max-w-[40%] text-left">{question.lowLabel}</span>
-          <span className="max-w-[40%] text-right">{question.highLabel}</span>
+          <span className="max-w-[40%] text-left">{locale === "en" && question.lowLabelEn ? question.lowLabelEn : question.lowLabel}</span>
+          <span className="max-w-[40%] text-right">{locale === "en" && question.highLabelEn ? question.highLabelEn : question.highLabel}</span>
         </div>
 
         <input
@@ -72,7 +75,7 @@ export default function SliderQuestion({
               : "border-gold/30 text-gold hover:border-gold/50 hover:bg-gold/[0.05]"
           }`}
         >
-          {confirmed ? "Confirmed" : "Confirm"}
+          {confirmed ? t("slider.confirmed", locale) : t("slider.confirm", locale)}
         </motion.button>
       </motion.div>
     </div>

@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
 
 interface TypeBreakdownProps {
   top3: { archetype: Archetype; similarity: number; percentage: number }[];
 }
 
 export default function TypeBreakdown({ top3 }: TypeBreakdownProps) {
+  const locale = useQuizStore((s) => s.locale);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,7 +36,7 @@ export default function TypeBreakdown({ top3 }: TypeBreakdownProps) {
                   {item.archetype.numeral}
                 </span>
                 <span className="text-sm font-normal text-text-primary/80">
-                  {item.archetype.name}
+                  {locale === "en" ? item.archetype.nameEn : item.archetype.name}
                 </span>
               </div>
               <span className="text-lg font-normal text-gold/60">
@@ -59,7 +61,7 @@ export default function TypeBreakdown({ top3 }: TypeBreakdownProps) {
             </div>
 
             <p className="mt-2 text-[10px] font-normal italic text-text-muted/40">
-              {item.archetype.nameEn}
+              {locale === "en" ? item.archetype.name : item.archetype.nameEn}
             </p>
           </motion.div>
         ))}

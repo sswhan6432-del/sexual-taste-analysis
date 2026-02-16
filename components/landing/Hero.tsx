@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useQuizStore, type Difficulty } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 
 const difficultyOptions: {
   key: Difficulty;
@@ -11,6 +12,7 @@ const difficultyOptions: {
   questions: string;
   time: string;
   description: string;
+  descriptionEn: string;
 }[] = [
   {
     key: "beginner",
@@ -19,6 +21,7 @@ const difficultyOptions: {
     questions: "12~20",
     time: "2min",
     description: "당신의 욕망을 살짝 엿보는 입문",
+    descriptionEn: "A quick peek into your desires",
   },
   {
     key: "intermediate",
@@ -27,6 +30,7 @@ const difficultyOptions: {
     questions: "24~40",
     time: "5min",
     description: "침대 위 당신을 해부하는 심층 분석",
+    descriptionEn: "An in-depth analysis of your intimate self",
   },
   {
     key: "expert",
@@ -35,12 +39,14 @@ const difficultyOptions: {
     questions: "36~60",
     time: "10min",
     description: "가장 은밀한 곳까지 완전한 탐색",
+    descriptionEn: "A full exploration to your deepest desires",
   },
 ];
 
 export default function Hero() {
   const router = useRouter();
   const { setDifficulty } = useQuizStore();
+  const locale = useQuizStore((s) => s.locale);
 
   const handleSelect = (difficulty: Difficulty) => {
     setDifficulty(difficulty);
@@ -96,7 +102,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 1.0 }}
           className="mx-auto mb-3 max-w-sm text-base font-normal leading-relaxed text-text-secondary"
         >
-          당신의 은밀한 욕망을 12가지 아키타입으로 해부합니다
+          {t("hero.subtitle", locale)}
         </motion.p>
 
         <motion.p
@@ -132,11 +138,11 @@ export default function Hero() {
                 className="group relative border border-white/[0.06] px-3 py-6 transition-all duration-500 hover:bg-gold/[0.03] sm:px-5"
               >
                 <p className="text-[10px] font-normal uppercase tracking-[0.25em] text-gold/40 transition-colors group-hover:text-gold/60">
-                  {opt.labelEn}
+                  {locale === "en" ? opt.label : opt.labelEn}
                 </p>
 
                 <p className="mt-2 text-lg font-normal text-text-primary transition-colors group-hover:text-gold sm:text-xl">
-                  {opt.label}
+                  {locale === "en" ? opt.labelEn : opt.label}
                 </p>
 
                 <div className="mx-auto my-3 h-px w-6 bg-gradient-to-r from-transparent via-gold/15 to-transparent transition-all group-hover:w-10 group-hover:via-gold/30" />
@@ -149,7 +155,7 @@ export default function Hero() {
                 </p>
 
                 <p className="mt-3 text-[11px] leading-relaxed text-text-muted/50 transition-colors group-hover:text-text-muted/70">
-                  {opt.description}
+                  {locale === "en" ? opt.descriptionEn : opt.description}
                 </p>
 
                 {/* Hover corner accents */}

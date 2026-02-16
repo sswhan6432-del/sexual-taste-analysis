@@ -9,6 +9,8 @@ import {
 } from "@/lib/ai-analysis";
 import type { DimensionScores, BdsmProfile } from "@/lib/scoring";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 
 interface AiAnalysisProps {
   scores: DimensionScores;
@@ -35,6 +37,7 @@ export default function AiAnalysis({
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [revealedCount, setRevealedCount] = useState(0);
+  const locale = useQuizStore((s) => s.locale);
 
   const generate = useCallback(() => {
     setIsGenerating(true);
@@ -96,12 +99,10 @@ export default function AiAnalysis({
           Powered by AI Engine
         </p>
         <h3 className="mb-2 text-lg font-normal text-text-primary">
-          AI 개인화 분석
+          {t("ai.title", locale)}
         </h3>
-        <p className="text-[11px] leading-relaxed text-text-muted/50">
-          8개 차원의 점수 조합과 성향 패턴을 기반으로
-          <br />
-          당신만을 위한 심층 분석을 생성합니다
+        <p className="text-[11px] leading-relaxed text-text-muted/50 whitespace-pre-line">
+          {t("ai.description", locale)}
         </p>
         <div className="mx-auto mt-4 h-px w-12 bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       </div>
@@ -130,7 +131,7 @@ export default function AiAnalysis({
               ))}
             </div>
             <span className="text-xs text-text-muted/40">
-              분석 생성 중...
+              {t("ai.generating", locale)}
             </span>
           </motion.div>
         )}
@@ -163,7 +164,7 @@ export default function AiAnalysis({
           className="mt-6 text-center"
         >
           <p className="mb-4 text-[9px] text-text-muted/25">
-            분석 결과는 동일한 점수에 대해 항상 같은 결과를 생성합니다
+            {t("ai.footer", locale)}
           </p>
         </motion.div>
       )}
@@ -186,6 +187,7 @@ function SectionCard({
   isExpanded: boolean;
   onToggle: () => void;
 }) {
+  const locale = useQuizStore((s) => s.locale);
   if (!isRevealed) return null;
 
   return (
@@ -205,9 +207,9 @@ function SectionCard({
         </span>
         <div className="flex-1">
           <p className="text-sm font-normal text-text-primary">
-            {section.title}
+            {locale === "en" ? section.titleEn : section.title}
           </p>
-          <p className="text-[10px] text-text-muted/30">{section.titleEn}</p>
+          <p className="text-[10px] text-text-muted/30">{locale === "en" ? section.title : section.titleEn}</p>
         </div>
         <motion.span
           animate={{ rotate: isExpanded ? 180 : 0 }}

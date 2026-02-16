@@ -3,6 +3,8 @@
 import { useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 
 interface ShareCardProps {
   archetype: Archetype;
@@ -11,6 +13,7 @@ interface ShareCardProps {
 
 export default function ShareCard({ archetype, similarity }: ShareCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const locale = useQuizStore((s) => s.locale);
 
   const handleDownload = useCallback(async () => {
     if (!cardRef.current) return;
@@ -49,14 +52,14 @@ export default function ShareCard({ archetype, similarity }: ShareCardProps) {
           Type {archetype.numeral}
         </p>
         <h3 className="mb-1 text-2xl font-normal text-gold">
-          {archetype.name}
+          {locale === "en" ? archetype.nameEn : archetype.name}
         </h3>
         <p className="mb-4 text-xs font-normal italic text-gray-600">
-          {archetype.nameEn}
+          {locale === "en" ? archetype.name : archetype.nameEn}
         </p>
         <div className="mx-auto mb-4 h-px w-10 bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
         <p className="mb-4 text-sm font-normal leading-relaxed text-gray-400">
-          {archetype.description}
+          {locale === "en" ? archetype.descriptionEn : archetype.description}
         </p>
         <p className="text-[10px] font-normal tracking-wider text-gold/40">
           {Math.round(similarity * 100)}% match
@@ -73,7 +76,7 @@ export default function ShareCard({ archetype, similarity }: ShareCardProps) {
           onClick={handleDownload}
           className="flex-1 border border-gold/30 py-3 text-sm font-normal uppercase tracking-[0.15em] text-gold transition-all hover:border-gold/50 hover:bg-gold/[0.05]"
         >
-          Save Image
+          {t("share.saveImage", locale)}
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.01 }}
@@ -81,7 +84,7 @@ export default function ShareCard({ archetype, similarity }: ShareCardProps) {
           onClick={handleCopyLink}
           className="flex-1 border border-white/[0.06] py-3 text-sm font-normal uppercase tracking-[0.15em] text-text-secondary transition-all hover:border-white/10 hover:bg-white/[0.02]"
         >
-          Copy Link
+          {t("share.copyLink", locale)}
         </motion.button>
       </div>
     </motion.div>

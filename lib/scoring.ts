@@ -292,6 +292,33 @@ function generateTraitTags(scores: DimensionScores): string[] {
   return tags;
 }
 
+export const traitTagEnMap: Record<string, string> = {
+  "주도적": "Dominant",
+  "수용적": "Receptive",
+  "감성적": "Emotional",
+  "독립적": "Independent",
+  "모험가": "Adventurer",
+  "안정 추구": "Stability-seeker",
+  "감각주의": "Sensualist",
+  "정서 중심": "Emotion-centered",
+  "분위기 메이커": "Mood Maker",
+  "즉흥파": "Spontaneous",
+  "화술가": "Smooth Talker",
+  "비언어적": "Non-verbal",
+  "깊은 관계 지향": "Deep Bond Seeker",
+  "가벼운 관계 지향": "Casual Bond Seeker",
+  "몽상가": "Dreamer",
+  "현실주의": "Realist",
+  "카리스마 + 따뜻함": "Charisma + Warmth",
+  "미학적 감각": "Aesthetic Sense",
+  "탐험적 상상력": "Exploratory Imagination",
+  "소울메이트 추구": "Soulmate Seeker",
+  "헌신적 수호자": "Devoted Guardian",
+  "자유로운 방랑자": "Free Wanderer",
+  "내면의 세계": "Inner World",
+  "쾌락의 탐닉자": "Pleasure Devotee",
+};
+
 const dimensionInsightMap: Record<string, { low: string; mid: string; high: string }> = {
   dominance: {
     low: "당신은 상대의 손에 이끌릴 때 가장 흥분합니다. 누군가 당신의 손목을 잡고 이끌어주는 순간, 온몸의 긴장이 풀리며 깊은 쾌감이 시작됩니다. 수용은 약함이 아닌, 신뢰의 가장 에로틱한 표현입니다.",
@@ -335,6 +362,49 @@ const dimensionInsightMap: Record<string, { low: string; mid: string; high: stri
   },
 };
 
+export const dimensionInsightMapEn: Record<string, { low: string; mid: string; high: string }> = {
+  dominance: {
+    low: "You're most aroused when led by someone's hand. The moment someone grabs your wrist and guides you, all tension melts and deep pleasure begins. Surrender is not weakness — it's the most erotic expression of trust.",
+    mid: "You freely navigate the power balance in bed. Sometimes pushing, sometimes yielding — this fluid exchange of power is your most stimulating foreplay.",
+    high: "You burn hottest when leading. Moving your partner's body where you want it, controlling the pace, deciding when to stop and start — that sense of power is the core fuel of your sexual energy.",
+  },
+  emotion: {
+    low: "You can be hot without emotions. Your body responds before your heart, and pure physical pleasure alone is fully satisfying. A realist who knows that intimacy without love can still be meaningful.",
+    mid: "You know the golden ratio between emotion and physical pleasure. It's better with a heart connection, but sometimes pure physical attraction is enough — a flexible approach to both.",
+    high: "For you, intimacy is an extension of emotion. If your heart isn't open, your body won't open either. A single touch from someone you love is more powerful than a thousand techniques. The deeper the emotion, the deeper the climax.",
+  },
+  adventure: {
+    low: "You appreciate the depth of proven pleasure. Perfecting a familiar method is more satisfying than a new position every time. Your way is adding detail within the comfort of stability.",
+    mid: "You occasionally try new things without going too far. Open to 'Shall we try this?' while clearly knowing your limits — a balanced explorer.",
+    high: "Repetition holds no appeal for you. New places, new methods, untried experiences — your thirst for the unknown constantly recharges your sexual energy. Routine is your enemy.",
+  },
+  sensory: {
+    low: "You feel with your heart more than your skin. Without elaborate sensory stimulation, a single glance or breath from your partner can send shivers. Emotional depth determines pleasure, not sensation.",
+    mid: "You naturally balance sensory pleasure and emotional connection. Both touch and heart matter — the best experiences emerge when both are fulfilled.",
+    high: "Your skin is an array of thousands of antennas. The subtlest brush of fingertips, the temperature difference when lips touch, your partner's scent — every sensory signal is amplified and converted to pleasure. Your body is a receiver of ecstasy.",
+  },
+  atmosphere: {
+    low: "On the couch, in the kitchen, in a parking lot — location doesn't matter. Where desire strikes becomes your bedroom. You feel even more intense excitement in spontaneous situations.",
+    mid: "Nice ambiance is a plus, but not a requirement. You're flexible enough to enjoy the moment, sometimes savoring planned romance, sometimes spontaneous passion.",
+    high: "Dim the lights, play your favorite music, feel the sheets — everything must be perfect before your body opens. The environment itself is your most potent aphrodisiac, and intimacy without atmosphere is a soulless night.",
+  },
+  communication: {
+    low: "You speak with your body instead of words. Heavy breathing, nails on the back, legs wrapped around — non-verbal signals are more honest and hotter than any dirty talk.",
+    mid: "You know when to say the right thing at the right moment. Sometimes a whispered tease, sometimes deep silence — you naturally switch communication styles to match the situation.",
+    high: "Words are your most powerful sexual tool. 'Right there,' 'More,' 'How about this?' — honest expression boosts intimacy quality by 200%, and sharing desires through words is foreplay itself.",
+  },
+  intimacy: {
+    low: "You prefer a dynamic where getting dressed right after feels natural. You can burn hot without deep bonds, and you perform best in relationships free from emotional weight.",
+    mid: "Some closeness is nice, but you don't need to share souls. You feel the most natural pleasure in a relationship that's comfortable yet maintains a healthy tension.",
+    high: "You make love for that moment after — burying your face in each other's skin, holding each other until breathing slows. Without soul-baring intimacy, even the hottest night feels hollow.",
+  },
+  fantasy: {
+    low: "You focus on the here and now — what's actually happening. Without elaborate scenarios, your partner's body heat and breath are enough. Real pleasure outweighs any fantasy.",
+    mid: "You sometimes sketch steamy scenarios in your mind, but acting on them is another matter. Moderate fantasy adds spice to your relationship without losing the foundation of reality.",
+    high: "Your mind is a 24-hour midnight theater. With whom, where, in what situation — scenarios you can't speak of in reality are playing in exquisite detail. When this rich imagination transfers to the real bedroom, your partner experiences an unforgettable night.",
+  },
+};
+
 // ─── BDSM Spectrum Analysis ───
 
 export interface BdsmProfile {
@@ -342,6 +412,7 @@ export interface BdsmProfile {
   dsSpectrum: number;
   dsLabel: string;
   dsDescription: string;
+  dsDescriptionEn: string;
   /** S/M intensity: 0 = vanilla, 100 = intense */
   intensity: number;
   intensityLabel: string;
@@ -349,10 +420,12 @@ export interface BdsmProfile {
   role: string;
   roleEn: string;
   roleDescription: string;
+  roleDescriptionEn: string;
   /** Secondary tendencies */
   tendencies: string[];
   /** One-liner for sharing */
   headline: string;
+  headlineEn: string;
 }
 
 const bdsmRoles: {
@@ -360,6 +433,7 @@ const bdsmRoles: {
   name: string;
   nameEn: string;
   description: string;
+  descriptionEn: string;
   condition: (s: (k: string) => number) => boolean;
   priority: number;
 }[] = [
@@ -368,6 +442,7 @@ const bdsmRoles: {
     name: "젠틀 도미넌트",
     nameEn: "Gentle Dominant",
     description: "당신의 손이 목을 감쌀 때도 눈빛은 '괜찮아?'를 묻고 있습니다. 강하게 지배하되 한 번도 파트너를 불안하게 만들지 않는 — 가장 위험하면서도 가장 안전한 지배자입니다.",
+    descriptionEn: "Even when your hand wraps around their throat, your eyes ask 'Are you okay?' You dominate firmly yet never make your partner feel unsafe — the most dangerous yet safest kind of dominant.",
     condition: (s) => s("dominance") >= 65 && s("emotion") >= 55,
     priority: 10,
   },
@@ -376,6 +451,7 @@ const bdsmRoles: {
     name: "스트릭트 도미넌트",
     nameEn: "Strict Dominant",
     description: "'무릎 꿇어'라는 한마디에 협상의 여지는 없습니다. 명확한 규칙과 체계 안에서 파트너를 단련시키는 것을 즐기며, 그 단호함 속에서 파트너는 역설적으로 가장 깊은 해방감을 느낍니다.",
+    descriptionEn: "'Kneel' — there's no room for negotiation. You enjoy training your partner within clear rules and structure, and paradoxically, your firmness gives them the deepest sense of liberation.",
     condition: (s) => s("dominance") >= 70 && s("emotion") < 50 && s("communication") >= 55,
     priority: 9,
   },
@@ -384,6 +460,7 @@ const bdsmRoles: {
     name: "센슈얼 도미넌트",
     nameEn: "Sensual Dominant",
     description: "채찍 대신 깃털을, 명령 대신 속삭임을 무기로 씁니다. 파트너의 피부 위를 느리게 훑는 손끝 하나로 전신을 지배하며, 감각의 과부하로 상대를 녹여버립니다.",
+    descriptionEn: "You wield feathers instead of whips, whispers instead of commands. A single fingertip slowly tracing your partner's skin dominates their entire body, melting them through sensory overload.",
     condition: (s) => s("dominance") >= 60 && s("sensory") >= 65,
     priority: 8,
   },
@@ -392,6 +469,7 @@ const bdsmRoles: {
     name: "플레이풀 스위치",
     nameEn: "Playful Switch",
     description: "방금까지 위에 있다가 다음 순간 아래에 깔리는 것을 즐깁니다. '오늘은 네가 해봐'라는 말 한마디로 판을 뒤집는 유연함이 매력이며, 예측 불가능한 역동이 당신과의 밤을 지루할 틈 없게 만듭니다.",
+    descriptionEn: "You enjoy being on top one moment and pinned down the next. Your charm is the flexibility to flip the script with a single 'Your turn tonight,' making nights with you endlessly unpredictable.",
     condition: (s) => s("dominance") >= 35 && s("dominance") <= 65 && s("adventure") >= 55,
     priority: 7,
   },
@@ -400,6 +478,7 @@ const bdsmRoles: {
     name: "로맨틱 서브미시브",
     nameEn: "Romantic Submissive",
     description: "사랑하는 사람에게만 온전히 맡길 수 있습니다. 신뢰라는 이름의 안전장치가 있어야만 비로소 눈을 감고 몸을 내려놓을 수 있는 — 감정이 곧 열쇠인 서브미시브입니다.",
+    descriptionEn: "You can only fully surrender to someone you love. Trust is your safety net — only then can you close your eyes and let go. Emotion is the key to your submission.",
     condition: (s) => s("dominance") <= 40 && s("emotion") >= 60,
     priority: 8,
   },
@@ -408,6 +487,7 @@ const bdsmRoles: {
     name: "브랫",
     nameEn: "Brat",
     description: "'시키는 대로 해'라고요? 그 말이 당신을 더 도전하게 만듭니다. 일부러 말을 안 듣고, 일부러 도발하고, 상대가 '진짜' 힘을 보여줄 때까지 밀어붙입니다. 길들여지는 과정 자체가 당신의 쾌락입니다.",
+    descriptionEn: "'Do as you're told'? That only makes you push harder. You deliberately disobey and provoke until your partner shows their 'real' strength. The process of being tamed IS your pleasure.",
     condition: (s) => s("dominance") >= 35 && s("dominance") <= 60 && s("adventure") >= 55 && s("communication") >= 50,
     priority: 7,
   },
@@ -416,6 +496,7 @@ const bdsmRoles: {
     name: "서비스 서브미시브",
     nameEn: "Service Submissive",
     description: "파트너의 신음소리가 당신의 보상입니다. 상대의 모든 욕구를 읽고 충족시키는 것에서 깊은 성적 흥분을 느끼며, '잘했어'라는 한마디에 온몸이 반응합니다.",
+    descriptionEn: "Your partner's moans are your reward. Reading and fulfilling their every desire gives you deep arousal, and a simple 'Good job' makes your whole body respond.",
     condition: (s) => s("dominance") <= 35 && s("intimacy") >= 60 && s("emotion") >= 50,
     priority: 8,
   },
@@ -424,6 +505,7 @@ const bdsmRoles: {
     name: "판타지 익스플로러",
     nameEn: "Fantasy Explorer",
     description: "오늘은 선생님과 학생, 내일은 낯선 사람과의 하룻밤 — 현실에서 불가능한 시나리오를 침실에서 실현시킵니다. 역할극의 몰입도가 높을수록 쾌감도 배가됩니다.",
+    descriptionEn: "Teacher and student today, strangers for a night tomorrow — you bring impossible scenarios to life in the bedroom. The deeper you immerse in roleplay, the more pleasure multiplies.",
     condition: (s) => s("fantasy") >= 65 && s("adventure") >= 55,
     priority: 6,
   },
@@ -432,6 +514,7 @@ const bdsmRoles: {
     name: "감각 탐닉자",
     nameEn: "Sensory Devotee",
     description: "얼음과 뜨거운 왁스, 실크와 가죽의 대비 — 피부가 느끼는 모든 자극이 당신의 놀이터입니다. 감각의 한계를 실험하고, 그 경계에서 전에 없던 쾌락을 발견합니다.",
+    descriptionEn: "Ice and hot wax, silk and leather — every stimulus your skin can feel is your playground. You experiment with sensory limits and discover unprecedented pleasure at those boundaries.",
     condition: (s) => s("sensory") >= 65 && s("adventure") >= 50,
     priority: 6,
   },
@@ -440,6 +523,7 @@ const bdsmRoles: {
     name: "바닐라 플러스",
     nameEn: "Vanilla Plus",
     description: "극단적인 플레이보다 정석의 깊이를 아는 사람입니다. 선교사 자세도 눈을 마주치며 하면 이 세상 어떤 포지션보다 뜨거울 수 있다는 것을 증명하는 유형입니다.",
+    descriptionEn: "You understand the depth of the classics over extreme play. You prove that missionary with locked eyes can be hotter than any other position in the world.",
     condition: () => true,
     priority: 0,
   },
@@ -453,21 +537,28 @@ export function analyzeBdsm(scores: DimensionScores): BdsmProfile {
   let dsLabel: string;
   let dsDescription: string;
 
+  let dsDescriptionEn: string;
+
   if (dsSpectrum >= 68) {
     dsLabel = "Dominant";
     dsDescription = "관계의 주도권을 잡고 방향을 제시하는 것에서 에너지를 얻습니다.";
+    dsDescriptionEn = "You draw energy from taking the lead and setting the direction.";
   } else if (dsSpectrum >= 56) {
     dsLabel = "Soft Dominant";
     dsDescription = "부드럽게 이끌되 상대의 반응에 유연하게 대응하는 스타일입니다.";
+    dsDescriptionEn = "You lead gently while responding flexibly to your partner's reactions.";
   } else if (dsSpectrum >= 44) {
     dsLabel = "Switch";
     dsDescription = "상황과 파트너에 따라 주도하기도, 따르기도 하는 유연한 성향입니다.";
+    dsDescriptionEn = "You flexibly lead or follow depending on the situation and partner.";
   } else if (dsSpectrum >= 32) {
     dsLabel = "Soft Submissive";
     dsDescription = "상대의 리드를 즐기되 자신만의 의사표현도 자연스럽게 합니다.";
+    dsDescriptionEn = "You enjoy your partner's lead while naturally expressing your own desires.";
   } else {
     dsLabel = "Submissive";
     dsDescription = "상대에게 주도권을 맡기고 그 흐름에 몰입하는 것에서 깊은 만족을 느낍니다.";
+    dsDescriptionEn = "You find deep satisfaction in surrendering control and immersing in the flow.";
   }
 
   // Intensity
@@ -501,18 +592,22 @@ export function analyzeBdsm(scores: DimensionScores): BdsmProfile {
 
   // Headline for sharing
   const headline = generateHeadline(role.id, dsLabel, clampedIntensity);
+  const headlineEn = generateHeadlineEn(role.id, dsLabel, clampedIntensity);
 
   return {
     dsSpectrum,
     dsLabel,
     dsDescription,
+    dsDescriptionEn,
     intensity: clampedIntensity,
     intensityLabel,
     role: role.name,
     roleEn: role.nameEn,
     roleDescription: role.description,
+    roleDescriptionEn: role.descriptionEn,
     tendencies: tendencies.slice(0, 4),
     headline,
+    headlineEn,
   };
 }
 
@@ -532,6 +627,22 @@ function generateHeadline(roleId: string, dsLabel: string, intensity: number): s
   return headlines[roleId] ?? `${dsLabel} 성향의 ${intensity >= 60 ? "강렬한" : "섬세한"} 매력`;
 }
 
+function generateHeadlineEn(roleId: string, dsLabel: string, intensity: number): string {
+  const headlines: Record<string, string> = {
+    "gentle-dom": "When your hand wraps around their throat, your partner feels not fear but relief — that is your dominance",
+    "strict-dom": "Why is obeying your rules so addictive? Even your partner can't explain it",
+    "sensual-dom": "Electricity follows wherever your fingertips travel — the most elegant way to dominate through sensation",
+    "playful-switch": "Top to bottom and back again — a night with you is the hottest game where no one knows who wins",
+    "romantic-sub": "The moment you close your eyes and surrender, it's not defeat — it's the bravest confession of love",
+    "brat": "Pretending not to listen, provoking on purpose — the thrill of finally being caught is what you truly crave",
+    "service-sub": "On your knees, looking up — in that gaze, you're exercising the most powerful form of authority",
+    "fantasy-explorer": "Your mental screenplay is always rated X — and you're ready to make those fantasies reality",
+    "sensory-devotee": "Between hot and cold, soft and sharp — you find your climax in the space between extremes",
+    "vanilla-plus": "Without any special tools, you can send shivers through their entire body with just eye contact",
+  };
+  return headlines[roleId] ?? `A ${dsLabel} with ${intensity >= 60 ? "intense" : "delicate"} allure`;
+}
+
 function generateDimensionInsights(
   scores: DimensionScores
 ): Record<string, string> {
@@ -540,6 +651,24 @@ function generateDimensionInsights(
   for (const dim of dimensions) {
     const score = scores[dim.key] ?? 50;
     const map = dimensionInsightMap[dim.key];
+    if (!map) continue;
+
+    if (score <= 35) insights[dim.key] = map.low;
+    else if (score >= 65) insights[dim.key] = map.high;
+    else insights[dim.key] = map.mid;
+  }
+
+  return insights;
+}
+
+export function generateDimensionInsightsEn(
+  scores: DimensionScores
+): Record<string, string> {
+  const insights: Record<string, string> = {};
+
+  for (const dim of dimensions) {
+    const score = scores[dim.key] ?? 50;
+    const map = dimensionInsightMapEn[dim.key];
     if (!map) continue;
 
     if (score <= 35) insights[dim.key] = map.low;

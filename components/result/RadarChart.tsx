@@ -11,14 +11,16 @@ import {
 } from "recharts";
 import { dimensions } from "@/lib/dimensions";
 import type { DimensionScores } from "@/lib/scoring";
+import { useQuizStore } from "@/store/quizStore";
 
 interface RadarChartProps {
   scores: DimensionScores;
 }
 
 export default function RadarChartComponent({ scores }: RadarChartProps) {
+  const locale = useQuizStore((s) => s.locale);
   const data = dimensions.map((dim) => ({
-    subject: dim.name,
+    subject: locale === "en" ? dim.nameEn : dim.name,
     value: scores[dim.key] ?? 50,
     fullMark: 100,
   }));

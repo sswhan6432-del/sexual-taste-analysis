@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 import { categories } from "@/lib/questions";
 import { useQuizStore } from "@/store/quizStore";
 import { MIN_CATEGORIES, MAX_CATEGORIES } from "@/lib/constants";
+import { t } from "@/lib/i18n";
 
 export default function CategorySelect() {
-  const { selectedCategories, toggleCategory, startAdaptiveQuiz } = useQuizStore();
+  const { selectedCategories, toggleCategory, startAdaptiveQuiz, locale } = useQuizStore();
   const canProceed =
     selectedCategories.length >= MIN_CATEGORIES &&
     selectedCategories.length <= MAX_CATEGORIES;
@@ -23,12 +24,12 @@ export default function CategorySelect() {
           Select Categories
         </p>
         <h2 className="mb-4 text-3xl font-normal text-text-primary sm:text-4xl">
-          관심 있는 영역을 선택하세요
+          {t("category.title", locale)}
         </h2>
         <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
         <p className="text-sm font-normal text-text-muted">
-          {MIN_CATEGORIES}~{MAX_CATEGORIES}개 선택 &middot; 현재{" "}
-          {selectedCategories.length}개 선택됨
+          {MIN_CATEGORIES}~{MAX_CATEGORIES} {t("category.range", locale)} &middot;{" "}
+          {selectedCategories.length} {t("category.count", locale)}
         </p>
       </motion.div>
 
@@ -57,13 +58,13 @@ export default function CategorySelect() {
               }`}
             >
               <p className="mb-1 text-xs font-normal uppercase tracking-[0.2em] text-gold/40">
-                {cat.nameEn}
+                {locale === "en" ? cat.name : cat.nameEn}
               </p>
               <h3 className="mb-2 text-lg font-normal text-text-primary">
-                {cat.name}
+                {locale === "en" ? cat.nameEn : cat.name}
               </h3>
               <p className="text-sm font-normal text-text-muted">
-                {cat.description}
+                {locale === "en" ? cat.descriptionEn : cat.description}
               </p>
 
               {isSelected && (

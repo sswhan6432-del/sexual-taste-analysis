@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { dimensions } from "@/lib/dimensions";
+import { useQuizStore } from "@/store/quizStore";
+import { generateDimensionInsightsEn } from "@/lib/scoring";
 
 interface DimensionInsightsProps {
   insights: Record<string, string>;
@@ -14,8 +16,11 @@ export default function DimensionInsights({
   scores,
 }: DimensionInsightsProps) {
   const [expandedDim, setExpandedDim] = useState<string | null>(null);
+  const locale = useQuizStore((s) => s.locale);
+  const insightsEn = useMemo(() => locale === "en" ? generateDimensionInsightsEn(scores) : null, [locale, scores]);
+  const activeInsights = locale === "en" && insightsEn ? insightsEn : insights;
 
-  const insightDimensions = dimensions.filter((d) => insights[d.key]);
+  const insightDimensions = dimensions.filter((d) => activeInsights[d.key]);
 
   return (
     <motion.div
@@ -48,7 +53,7 @@ export default function DimensionInsights({
                     {dim.symbol}
                   </span>
                   <span className="text-sm font-normal text-text-primary/80">
-                    {dim.name}
+                    {locale === "en" ? dim.nameEn : dim.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -79,7 +84,7 @@ export default function DimensionInsights({
                   >
                     <div className="border-t border-white/[0.03] px-5 py-4">
                       <p className="text-xs font-normal leading-[1.8] text-text-muted/70">
-                        {insights[dim.key]}
+                        {activeInsights[dim.key]}
                       </p>
                     </div>
                   </motion.div>

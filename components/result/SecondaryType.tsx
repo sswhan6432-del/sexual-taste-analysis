@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Archetype } from "@/lib/types";
+import { useQuizStore } from "@/store/quizStore";
 
 interface SecondaryTypeProps {
   archetype: Archetype;
@@ -12,6 +13,7 @@ export default function SecondaryType({
   archetype,
   similarity,
 }: SecondaryTypeProps) {
+  const locale = useQuizStore((s) => s.locale);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,13 +34,13 @@ export default function SecondaryType({
 
         <div className="flex-1">
           <h3 className="text-lg font-normal text-text-primary">
-            {archetype.name}
+            {locale === "en" ? archetype.nameEn : archetype.name}
           </h3>
           <p className="mt-0.5 text-xs font-normal italic text-gold/30">
-            {archetype.nameEn}
+            {locale === "en" ? archetype.name : archetype.nameEn}
           </p>
           <p className="mt-2 text-xs font-normal leading-relaxed text-text-muted/70">
-            {archetype.description}
+            {locale === "en" ? archetype.descriptionEn : archetype.description}
           </p>
         </div>
       </div>

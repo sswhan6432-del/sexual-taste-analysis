@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/Header";
 
 const siteUrl = "https://tastanalysis.com";
 
 export const metadata: Metadata = {
-  title: "Sexual Taste Analysis — 당신의 성적 취향 아키타입 분석",
+  title: "Sexual Taste Analysis — Discover Your Intimate Archetype",
   description:
-    "72개 질문, 8개 차원, 12가지 성적 아키타입. 당신만의 은밀한 욕망 지도를 그려보세요. 모든 데이터는 기기에만 저장됩니다.",
-  keywords: ["sexual taste", "성적 취향", "아키타입", "BDSM", "성향 테스트", "intimate archetype"],
+    "72 questions, 8 dimensions, 12 intimate archetypes. Discover your hidden desire map. All data stays on your device.",
+  keywords: ["sexual taste", "intimate archetype", "BDSM", "personality test", "archetype analysis", "성적 취향", "아키타입"],
   openGraph: {
     title: "Sexual Taste Analysis",
-    description: "당신의 은밀한 욕망을 12가지 아키타입으로 해부합니다",
+    description: "Discover your intimate desires through 12 archetypes",
     url: siteUrl,
     siteName: "Sexual Taste Analysis",
-    locale: "ko_KR",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Sexual Taste Analysis",
-    description: "당신의 은밀한 욕망을 12가지 아키타입으로 해부합니다",
+    description: "Discover your intimate desires through 12 archetypes",
   },
   robots: {
     index: true,
@@ -41,7 +42,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased pt-14">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

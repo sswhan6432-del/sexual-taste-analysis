@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useQuizStore } from "@/store/quizStore";
+import { t } from "@/lib/i18n";
 import ViralCard from "@/components/result/ViralCard";
 import BdsmResult from "@/components/result/BdsmResult";
 import TypeCard from "@/components/result/TypeCard";
@@ -33,6 +34,7 @@ export default function ResultPage() {
     dominantDimensions,
     recessiveDimensions,
     bdsmProfile,
+    locale,
   } = useQuizStore();
   const router = useRouter();
 
@@ -130,7 +132,7 @@ export default function ResultPage() {
             onClick={handleRetry}
             className="border border-white/[0.06] px-10 py-3 text-sm font-normal uppercase tracking-[0.2em] text-text-muted transition-all hover:border-gold/20 hover:text-text-secondary"
           >
-            Retake
+            {t("result.retake", locale)}
           </motion.button>
         </div>
       </motion.div>

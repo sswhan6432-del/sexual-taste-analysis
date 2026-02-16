@@ -21,10 +21,12 @@ import type { Question } from "@/lib/questions";
 
 export type Step = "landing" | "category" | "quiz" | "result";
 export type Difficulty = "beginner" | "intermediate" | "expert";
+export type Locale = "ko" | "en";
 
 interface QuizState {
   step: Step;
   difficulty: Difficulty;
+  locale: Locale;
   selectedCategories: string[];
   /** Adaptive engine state */
   adaptiveState: AdaptiveState | null;
@@ -56,6 +58,7 @@ interface QuizState {
   // Actions
   setStep: (step: Step) => void;
   setDifficulty: (difficulty: Difficulty) => void;
+  setLocale: (locale: Locale) => void;
   toggleCategory: (categoryId: string) => void;
   setSelectedCategories: (categories: string[]) => void;
   /** Start the adaptive quiz (call after category selection) */
@@ -68,9 +71,18 @@ interface QuizState {
   reset: () => void;
 }
 
+function getInitialLocale(): Locale {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("locale");
+    if (stored === "en" || stored === "ko") return stored;
+  }
+  return "ko";
+}
+
 const initialState = {
   step: "landing" as Step,
   difficulty: "intermediate" as Difficulty,
+  locale: (typeof window !== "undefined" ? getInitialLocale() : "ko") as Locale,
   selectedCategories: [] as string[],
   adaptiveState: null as AdaptiveState | null,
   currentQuestion: null as Question | null,
@@ -93,11 +105,12 @@ const initialState = {
   currentCategoryLabel: null as string | null,
 };
 
-function getCategoryLabel(questionId: string): string | null {
+function getCategoryLabel(questionId: string, locale: Locale): string | null {
   const meta = questionMeta[questionId];
   if (!meta) return null;
   const cat = categories.find((c) => c.id === meta.category);
-  return cat?.name ?? null;
+  if (!cat) return null;
+  return locale === "en" ? cat.nameEn : cat.name;
 }
 
 export const useQuizStore = create<QuizState>((set, get) => ({
@@ -106,6 +119,13 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   setStep: (step) => set({ step }),
 
   setDifficulty: (difficulty) => set({ difficulty }),
+
+  setLocale: (locale) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("locale", locale);
+    }
+    set({ locale });
+  },
 
   toggleCategory: (categoryId) =>
     set((state) => {
@@ -136,7 +156,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       progressCurrent: progress.current,
       progressTotal: progress.total,
       currentCategoryLabel: firstQuestion
-        ? getCategoryLabel(firstQuestion.id)
+        ? getCategoryLabel(firstQuestion.id, get().locale)
         : null,
       step: "quiz",
     });
@@ -189,7 +209,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       questionHistory: [...get().questionHistory, currentQuestion],
       progressCurrent: progress.current,
       progressTotal: progress.total,
-      currentCategoryLabel: nextQ ? getCategoryLabel(nextQ.id) : null,
+      currentCategoryLabel: nextQ ? getCategoryLabel(nextQ.id, get().locale) : null,
     });
   },
 
@@ -236,7 +256,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       answers: newAnswers,
       progressCurrent: progress.current,
       progressTotal: progress.total,
-      currentCategoryLabel: getCategoryLabel(prevQ.id),
+      currentCategoryLabel: getCategoryLabel(prevQ.id, get().locale),
     });
   },
 
