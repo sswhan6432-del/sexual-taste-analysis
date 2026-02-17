@@ -24,7 +24,7 @@ export default function ShareCard({ archetype, similarity }: ShareCardProps) {
         scale: 2,
       });
       const link = document.createElement("a");
-      link.download = `sexual-taste-${archetype.id}.png`;
+      link.download = `velvet-compass-${archetype.id}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     } catch {
@@ -65,7 +65,7 @@ export default function ShareCard({ archetype, similarity }: ShareCardProps) {
           {Math.round(similarity * 100)}% match
         </p>
         <p className="mt-6 text-[9px] font-normal uppercase tracking-[0.4em] text-gray-700">
-          Sexual Taste Analysis
+          Velvet Compass
         </p>
       </div>
 

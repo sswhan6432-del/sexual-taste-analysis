@@ -5,21 +5,21 @@ import Header from "@/components/Header";
 const siteUrl = "https://tastanalysis.com";
 
 export const metadata: Metadata = {
-  title: "Sexual Taste Analysis — Discover Your Intimate Archetype",
+  title: "Velvet Compass — Discover Your Intimate Archetype",
   description:
     "72 questions, 8 dimensions, 12 intimate archetypes. Discover your hidden desire map. All data stays on your device.",
-  keywords: ["sexual taste", "intimate archetype", "BDSM", "personality test", "archetype analysis", "성적 취향", "아키타입"],
+  keywords: ["velvet compass", "intimate archetype", "BDSM", "personality test", "archetype analysis", "성적 취향", "아키타입"],
   openGraph: {
-    title: "Sexual Taste Analysis",
+    title: "Velvet Compass",
     description: "Discover your intimate desires through 12 archetypes",
     url: siteUrl,
-    siteName: "Sexual Taste Analysis",
+    siteName: "Velvet Compass",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sexual Taste Analysis",
+    title: "Velvet Compass",
     description: "Discover your intimate desires through 12 archetypes",
   },
   robots: {

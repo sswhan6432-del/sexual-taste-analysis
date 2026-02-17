@@ -45,7 +45,7 @@ export default function Header() {
           href="/"
           className="text-[15px] font-semibold tracking-wide text-gold transition-opacity hover:opacity-80"
         >
-          Sexual Taste Analysis
+          Velvet Compass
         </Link>
 
         {/* Desktop Navigation */}

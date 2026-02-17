@@ -99,22 +99,33 @@ export default function ViralCard({
     }
   }, [archetype.id]);
 
+  const handleShareX = useCallback(() => {
+    const name = locale === "en" ? archetype.nameEn : archetype.name;
+    const role = locale === "en" ? bdsmProfile.roleEn : bdsmProfile.role;
+    const headline = locale === "en" ? bdsmProfile.headlineEn : bdsmProfile.headline;
+    const shareUrl = `${window.location.origin}/share/${archetype.id}`;
+    const text = `${name} | ${role}\n"${headline}"\n\n72 questions, 12 archetypes — discover yours`;
+    const xUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}&hashtags=VelvetCompass`;
+    window.open(xUrl, "_blank", "noopener,noreferrer,width=550,height=420");
+  }, [archetype, bdsmProfile, locale]);
+
   const handleShare = useCallback(async () => {
     const name = locale === "en" ? archetype.nameEn : archetype.name;
     const nameAlt = locale === "en" ? archetype.name : archetype.nameEn;
     const role = locale === "en" ? bdsmProfile.roleEn : bdsmProfile.role;
     const headline = locale === "en" ? bdsmProfile.headlineEn : bdsmProfile.headline;
-    const text = `${name} (${nameAlt}) | ${role}\n"${headline}"\n\nSexual Taste Analysis`;
+    const shareUrl = `${window.location.origin}/share/${archetype.id}`;
+    const text = `${name} (${nameAlt}) | ${role}\n"${headline}"\n\n${shareUrl}`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Sexual Taste Analysis", text, url: window.location.origin });
+        await navigator.share({ title: "Velvet Compass", text, url: shareUrl });
       } catch {
         navigator.clipboard.writeText(text);
       }
     } else {
       navigator.clipboard.writeText(text);
     }
-  }, [archetype, bdsmProfile]);
+  }, [archetype, bdsmProfile, locale]);
 
   const displayTags = traitTags.slice(0, 4);
 
@@ -137,7 +148,7 @@ export default function ViralCard({
           {/* Header */}
           <div className="mb-2 text-center">
             <p className="text-[9px] font-normal uppercase tracking-[0.5em] text-gold/35">
-              Sexual Taste Analysis
+              Velvet Compass
             </p>
           </div>
 
@@ -396,6 +407,17 @@ export default function ViralCard({
           className="flex-1 border border-gold/30 py-3 text-sm font-normal uppercase tracking-[0.15em] text-gold transition-all hover:border-gold/50 hover:bg-gold/[0.05]"
         >
           Save Image
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={handleShareX}
+          className="flex items-center justify-center gap-1.5 border border-white/[0.08] py-3 px-5 text-sm font-normal uppercase tracking-[0.15em] text-text-secondary transition-all hover:border-white/15 hover:bg-white/[0.03]"
+        >
+          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          Post
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.01 }}
