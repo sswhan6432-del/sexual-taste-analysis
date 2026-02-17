@@ -4,23 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useQuizStore } from "@/store/quizStore";
-import { useAuthStore } from "@/store/authStore";
 import { t } from "@/lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const locale = useQuizStore((s) => s.locale);
-  const { isAuthenticated, user, logout, hydrate } = useAuthStore();
   const pathname = usePathname();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Hydrate auth state from localStorage on mount
-  useEffect(() => {
-    hydrate();
-  }, [hydrate]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -77,12 +70,6 @@ export default function Header() {
             {dropdownOpen && (
               <div className="glass absolute top-full right-0 mt-2 min-w-[160px] rounded-sm py-1">
                 <Link
-                  href="/results"
-                  className="block px-4 py-2 text-[12px] tracking-wider text-text-secondary transition-colors hover:bg-white/[0.03] hover:text-gold"
-                >
-                  {t("header.results", locale)}
-                </Link>
-                <Link
                   href="/community"
                   className="block px-4 py-2 text-[12px] tracking-wider text-text-secondary transition-colors hover:bg-white/[0.03] hover:text-gold"
                 >
@@ -95,32 +82,6 @@ export default function Header() {
           <Link href="/contact" className={navLinkClass("/contact")}>
             {t("header.contact", locale)}
           </Link>
-
-          {isAuthenticated ? (
-            <>
-              <span className="text-[12px] tracking-wider text-gold-dim">
-                {user?.nickname}
-              </span>
-              <button
-                onClick={logout}
-                className="text-[13px] tracking-wider text-text-secondary transition-colors duration-200 hover:text-gold"
-              >
-                {t("header.logout", locale)}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className={navLinkClass("/login")}>
-                {t("header.login", locale)}
-              </Link>
-              <Link
-                href="/signup"
-                className="border border-gold/30 px-3 py-1 text-[13px] tracking-wider text-gold transition-all duration-200 hover:border-gold/60 hover:bg-gold/5"
-              >
-                {t("header.signup", locale)}
-              </Link>
-            </>
-          )}
 
           <LanguageSwitcher />
         </nav>
@@ -149,38 +110,12 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <nav className="glass flex flex-col gap-1 border-t border-white/[0.04] px-4 py-3 sm:hidden">
-          <Link href="/results" className="py-2 text-[13px] tracking-wider text-text-secondary hover:text-gold">
-            {t("header.results", locale)}
-          </Link>
           <Link href="/community" className="py-2 text-[13px] tracking-wider text-text-secondary hover:text-gold">
             {t("header.community", locale)}
           </Link>
           <Link href="/contact" className="py-2 text-[13px] tracking-wider text-text-secondary hover:text-gold">
             {t("header.contact", locale)}
           </Link>
-          <div className="gold-line my-1" />
-          {isAuthenticated ? (
-            <>
-              <span className="py-2 text-[12px] tracking-wider text-gold-dim">
-                {user?.nickname}
-              </span>
-              <button
-                onClick={logout}
-                className="py-2 text-left text-[13px] tracking-wider text-text-secondary hover:text-gold"
-              >
-                {t("header.logout", locale)}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="py-2 text-[13px] tracking-wider text-text-secondary hover:text-gold">
-                {t("header.login", locale)}
-              </Link>
-              <Link href="/signup" className="py-2 text-[13px] tracking-wider text-gold hover:text-gold/80">
-                {t("header.signup", locale)}
-              </Link>
-            </>
-          )}
         </nav>
       )}
     </header>

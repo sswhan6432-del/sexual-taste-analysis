@@ -36,10 +36,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta name="6a97888e-site-verification" content="e607ffb32c507948e8342e56af394441" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="text/javascript"
+          src="https://a.magsrv.com/ad-provider.js"
+          async
         />
       </head>
       <body className="antialiased pt-14">
