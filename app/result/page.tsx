@@ -18,6 +18,7 @@ import DimensionInsights from "@/components/result/DimensionInsights";
 import CompatibleTypes from "@/components/result/CompatibleTypes";
 import ScoreBreakdown from "@/components/result/ScoreBreakdown";
 import AiAnalysis from "@/components/result/AiAnalysis";
+import AdBanner from "@/components/ads/AdBanner";
 
 export default function ResultPage() {
   const {
@@ -111,6 +112,10 @@ export default function ResultPage() {
             scores={dimensionScores}
           />
           <CompatibleTypes archetype={resultType} />
+
+          {/* Ad: mid — between analysis sections */}
+          <AdBanner slot="result_mid" />
+
           {bdsmProfile && (
             <AiAnalysis
               scores={dimensionScores}
@@ -125,7 +130,11 @@ export default function ResultPage() {
           )}
         </div>
 
-        <div className="mt-16 text-center">
+        {/* Ads: after all content, before retake */}
+        <AdBanner slot="result_top" className="mt-12" />
+        <AdBanner slot="result_bottom" className="mt-6" />
+
+        <div className="mt-12 text-center">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

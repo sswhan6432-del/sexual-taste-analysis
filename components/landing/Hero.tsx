@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useQuizStore, type Difficulty } from "@/store/quizStore";
 import { t } from "@/lib/i18n";
+import AdBanner from "@/components/ads/AdBanner";
 
 const difficultyOptions: {
   key: Difficulty;
@@ -168,14 +169,42 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        {/* Couple Quiz button */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
+          className="mt-8 text-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.02, borderColor: "rgba(212,184,122,0.35)" }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => router.push("/couple")}
+            className="border border-white/[0.06] px-8 py-3 transition-all duration-500 hover:bg-gold/[0.03]"
+          >
+            <p className="text-[10px] font-normal uppercase tracking-[0.3em] text-gold/40">
+              {locale === "en" ? "With Partner" : "파트너와 함께"}
+            </p>
+            <p className="mt-1 text-sm font-normal text-text-secondary">
+              Couple Quiz
+            </p>
+          </motion.button>
+        </motion.div>
+
         {/* Bottom ornament */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 1.8 }}
+          transition={{ duration: 1, delay: 2.1 }}
           className="mx-auto mt-12 h-px w-10 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
         />
+
       </motion.div>
+
+      {/* Ad: home bottom — separated from main content */}
+      <div className="relative z-10 mt-20 pb-10">
+        <AdBanner slot="home_bottom" />
+      </div>
     </section>
   );
 }

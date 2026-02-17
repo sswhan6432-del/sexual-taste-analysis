@@ -366,6 +366,80 @@ const dictionary: Record<string, { ko: string; en: string }> = {
     ko: "메시지가 성공적으로 전송되었습니다. 감사합니다!",
     en: "Your message has been sent successfully. Thank you!",
   },
+
+  // ─── Couple Mode ───
+  "couple.title": {
+    ko: "커플 퀴즈",
+    en: "Couple Quiz",
+  },
+  "couple.subtitle": {
+    ko: "두 사람의 성적 궁합을 분석합니다",
+    en: "Discover your intimate compatibility together",
+  },
+  "couple.partner1": {
+    ko: "파트너 1",
+    en: "Partner 1",
+  },
+  "couple.partner2": {
+    ko: "파트너 2",
+    en: "Partner 2",
+  },
+  "couple.start": {
+    ko: "커플 퀴즈 시작",
+    en: "Start Couple Quiz",
+  },
+  "couple.enterNames": {
+    ko: "두 사람의 이름을 입력하세요",
+    en: "Enter both names",
+  },
+  "couple.transition.done": {
+    ko: "완료!",
+    en: "is done!",
+  },
+  "couple.transition.next": {
+    ko: "의 차례입니다",
+    en: "'s turn now",
+  },
+  "couple.transition.handover": {
+    ko: "기기를 전달해주세요",
+    en: "Please hand the device over",
+  },
+  "couple.result.compatibility": {
+    ko: "궁합 점수",
+    en: "Compatibility",
+  },
+  "couple.result.dimensions": {
+    ko: "8차원 비교 분석",
+    en: "8-Dimension Analysis",
+  },
+  "couple.result.style": {
+    ko: "BDSM 프로필 비교",
+    en: "BDSM Profile Comparison",
+  },
+  "couple.result.strengths": {
+    ko: "잘 맞는 영역",
+    en: "Where You Click",
+  },
+  "couple.result.growth": {
+    ko: "성장 가능 영역",
+    en: "Room to Grow",
+  },
+  "couple.result.plays": {
+    ko: "추천 플레이",
+    en: "Recommended Plays",
+  },
+  "couple.result.share": {
+    ko: "X에 공유하기",
+    en: "Share on X",
+  },
+  "couple.result.home": {
+    ko: "홈으로 돌아가기",
+    en: "Back to Home",
+  },
+  "couple.hero.button": {
+    ko: "파트너와 함께",
+    en: "With Partner",
+  },
 };
 
 export function t(key: string, locale: Locale): string {

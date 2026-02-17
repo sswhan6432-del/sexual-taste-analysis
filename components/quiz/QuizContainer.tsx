@@ -1,14 +1,16 @@
 "use client";
 
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuizStore } from "@/store/quizStore";
+import { useCoupleStore } from "@/store/coupleStore";
 import { t } from "@/lib/i18n";
 import MultipleChoice from "./MultipleChoice";
 import CardSelect from "./CardSelect";
 import SliderQuestion from "./SliderQuestion";
 import ProgressBar from "./ProgressBar";
+import CoupleTransition from "@/components/couple/CoupleTransition";
 
 export default function QuizContainer() {
   const router = useRouter();
@@ -24,6 +26,11 @@ export default function QuizContainer() {
     locale,
   } = useQuizStore();
 
+  const coupleActive = useCoupleStore((s) => s.active);
+  const currentPartner = useCoupleStore((s) => s.currentPartner);
+
+  const [showTransition, setShowTransition] = useState(false);
+
   const handleAnswer = useCallback(
     (scores: Record<string, number>) => {
       if (!currentQuestion) return;
@@ -32,11 +39,26 @@ export default function QuizContainer() {
       // If step changed to "result", navigate
       const currentStep = useQuizStore.getState().step;
       if (currentStep === "result") {
-        router.push("/result");
+        if (coupleActive && currentPartner === 1) {
+          // Partner 1 done: snapshot and show transition
+          useCoupleStore.getState().snapshotPartner1();
+          setShowTransition(true);
+        } else if (coupleActive && currentPartner === 2) {
+          // Partner 2 done: snapshot and go to couple result
+          useCoupleStore.getState().snapshotPartner2();
+          router.push("/couple/result");
+        } else {
+          // Solo mode
+          router.push("/result");
+        }
       }
     },
-    [currentQuestion, answerQuestion, router]
+    [currentQuestion, answerQuestion, router, coupleActive, currentPartner]
   );
+
+  if (showTransition) {
+    return <CoupleTransition />;
+  }
 
   if (!currentQuestion) return null;
 
