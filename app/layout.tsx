@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 
-const siteUrl = "https://tastanalysis.com";
+const siteUrl = "https://bdsmtest.space";
 
 export const metadata: Metadata = {
-  title: "Velvet Compass — Discover Your Intimate Archetype",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Velvet Compass — Discover Your Intimate Archetype",
+    template: "%s | Velvet Compass",
+  },
   description:
     "72 questions, 8 dimensions, 12 intimate archetypes. Discover your hidden desire map. All data stays on your device.",
   keywords: ["velvet compass", "intimate archetype", "BDSM", "personality test", "archetype analysis", "성적 취향", "아키타입"],
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
     description: "Discover your intimate desires through 12 archetypes",
     url: siteUrl,
     siteName: "Velvet Compass",
-    locale: "en_US",
+    locale: "ko_KR",
     type: "website",
   },
   twitter: {
@@ -25,6 +29,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: siteUrl,
   },
 };
 
@@ -45,6 +52,24 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3056597383286208"
           crossOrigin="anonymous"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "Velvet Compass",
+              url: siteUrl,
+              description: "72 questions, 8 dimensions, 12 intimate archetypes",
+              applicationCategory: "EntertainmentApplication",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+              publisher: {
+                "@type": "Organization",
+                name: "Velvet Compass",
+              },
+            }),
+          }}
         />
       </head>
       <body className="antialiased pt-14">
