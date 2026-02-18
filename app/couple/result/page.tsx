@@ -170,8 +170,8 @@ export default function CoupleResultPage() {
         </div>
 
         {/* Ads: after all content, before retake */}
-        <AdBanner slot="couple_result_top" className="mt-12" />
-        <AdBanner slot="couple_result_bottom" className="mt-6" />
+        <AdBanner slot="couple-top" className="mt-12" />
+        <AdBanner slot="couple-bottom" className="mt-6" />
 
         {/* Retake button */}
         <div className="mt-12 text-center">

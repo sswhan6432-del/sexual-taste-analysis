@@ -114,7 +114,7 @@ export default function ResultPage() {
           <CompatibleTypes archetype={resultType} />
 
           {/* Ad: mid — between analysis sections */}
-          <AdBanner slot="result_mid" />
+          <AdBanner slot="result-mid" />
 
           {bdsmProfile && (
             <AiAnalysis
@@ -131,8 +131,8 @@ export default function ResultPage() {
         </div>
 
         {/* Ads: after all content, before retake */}
-        <AdBanner slot="result_top" className="mt-12" />
-        <AdBanner slot="result_bottom" className="mt-6" />
+        <AdBanner slot="result-top" className="mt-12" />
+        <AdBanner slot="result-bottom" className="mt-6" />
 
         <div className="mt-12 text-center">
           <motion.button

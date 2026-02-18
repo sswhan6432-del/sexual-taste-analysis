@@ -203,7 +203,7 @@ export default function Hero() {
 
       {/* Ad: home bottom — separated from main content */}
       <div className="relative z-10 mt-20 pb-10">
-        <AdBanner slot="home_bottom" />
+        <AdBanner slot="home-bottom" />
       </div>
     </section>
   );

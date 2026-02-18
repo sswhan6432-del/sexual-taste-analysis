@@ -1,57 +1,44 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { AD_CONFIG, type AdSlot } from "@/lib/adConfig";
-
-declare global {
-  interface Window {
-    AdProvider?: Array<Record<string, unknown>>;
-  }
-}
 
 interface AdBannerProps {
-  slot: AdSlot;
+  slot?: string;
+  format?: "auto" | "horizontal" | "vertical" | "rectangle";
   className?: string;
 }
 
-export default function AdBanner({ slot, className = "" }: AdBannerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const initialized = useRef(false);
-
-  const zoneId = AD_CONFIG.zones[slot];
-  const isPlaceholder = zoneId.startsWith("YOUR_ZONE_ID");
+export default function AdBanner({
+  slot,
+  format = "auto",
+  className = "",
+}: AdBannerProps) {
+  const adRef = useRef<HTMLModElement>(null);
+  const pushed = useRef(false);
 
   useEffect(() => {
-    if (!AD_CONFIG.enabled || isPlaceholder || initialized.current) return;
-    initialized.current = true;
-
-    // Push ad serve request
-    window.AdProvider = window.AdProvider || [];
-    window.AdProvider.push({ serve: {} });
-  }, [isPlaceholder]);
-
-  if (!AD_CONFIG.enabled) return null;
-
-  // Development placeholder
-  if (isPlaceholder) {
-    if (process.env.NODE_ENV === "production") return null;
-    return (
-      <div
-        className={`mx-auto flex max-w-2xl items-center justify-center border border-dashed border-white/10 py-6 ${className}`}
-      >
-        <p className="text-[10px] uppercase tracking-widest text-white/20">
-          Ad Slot: {slot}
-        </p>
-      </div>
-    );
-  }
+    if (pushed.current || !adRef.current) return;
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
+        {}
+      );
+      pushed.current = true;
+    } catch {
+      // AdSense not loaded
+    }
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className={`mx-auto flex max-w-2xl items-center justify-center overflow-hidden ${className}`}
-    >
-      <ins className="eas6a97888e" data-zoneid={zoneId} />
+    <div className={`mx-auto max-w-2xl px-4 py-4 ${className}`}>
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: "block", minHeight: 100 }}
+        data-ad-client="ca-pub-3056597383286208"
+        {...(slot ? { "data-ad-slot": slot } : {})}
+        data-ad-format={format}
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }
