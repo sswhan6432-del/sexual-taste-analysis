@@ -7,15 +7,15 @@ const siteUrl = "https://bdsmtest.space";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Velvet Compass — Discover Your Intimate Archetype",
+    default: "Velvet Compass — Discover Your Relationship Archetype",
     template: "%s | Velvet Compass",
   },
   description:
-    "72 questions, 8 dimensions, 12 intimate archetypes. Discover your hidden desire map. All data stays on your device.",
-  keywords: ["velvet compass", "intimate archetype", "BDSM", "personality test", "archetype analysis", "성적 취향", "아키타입"],
+    "72 questions, 8 dimensions, 12 relationship archetypes. Discover your hidden personality map. All data stays on your device.",
+  keywords: ["velvet compass", "relationship archetype", "personality test", "archetype analysis", "관계 성향 테스트", "아키타입", "심리 테스트", "relationship dynamics"],
   openGraph: {
     title: "Velvet Compass",
-    description: "Discover your intimate desires through 12 archetypes",
+    description: "Discover your relationship style through 12 archetypes",
     url: siteUrl,
     siteName: "Velvet Compass",
     locale: "ko_KR",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Velvet Compass",
-    description: "Discover your intimate desires through 12 archetypes",
+    description: "Discover your relationship style through 12 archetypes",
   },
   robots: {
     index: true,
@@ -48,6 +48,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
           rel="stylesheet"
         />
+        {/* Google AdSense */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3056597383286208"
@@ -61,7 +62,7 @@ export default function RootLayout({
               "@type": "WebApplication",
               name: "Velvet Compass",
               url: siteUrl,
-              description: "72 questions, 8 dimensions, 12 intimate archetypes",
+              description: "72 questions, 8 dimensions, 12 relationship archetypes",
               applicationCategory: "EntertainmentApplication",
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
               publisher: {

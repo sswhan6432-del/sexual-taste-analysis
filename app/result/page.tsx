@@ -90,6 +90,9 @@ export default function ResultPage() {
           />
         </motion.div>
 
+        {/* Ad — after viral card, before detail analysis */}
+        <AdBanner slot="6012080126" format="auto" className="mb-2" />
+
         <div className="space-y-10">
           {/* BDSM Deep Dive */}
           {bdsmProfile && <BdsmResult profile={bdsmProfile} />}
@@ -113,8 +116,8 @@ export default function ResultPage() {
           />
           <CompatibleTypes archetype={resultType} />
 
-          {/* Ad: mid — between analysis sections */}
-          <AdBanner slot="result-mid" />
+          {/* Ad — mid-page before AI analysis */}
+          <AdBanner slot="6012080126" format="auto" />
 
           {bdsmProfile && (
             <AiAnalysis
@@ -129,10 +132,6 @@ export default function ResultPage() {
             />
           )}
         </div>
-
-        {/* Ads: after all content, before retake */}
-        <AdBanner slot="result-top" className="mt-12" />
-        <AdBanner slot="result-bottom" className="mt-6" />
 
         <div className="mt-12 text-center">
           <motion.button
