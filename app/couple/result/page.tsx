@@ -10,7 +10,6 @@ import DimensionCompare from "@/components/couple/DimensionCompare";
 import StyleCompare from "@/components/couple/StyleCompare";
 import RecommendedPlays from "@/components/couple/RecommendedPlays";
 import CoupleShareCard from "@/components/couple/CoupleShareCard";
-import AdBanner from "@/components/ads/AdBanner";
 
 export default function CoupleResultPage() {
   const router = useRouter();
@@ -168,10 +167,6 @@ export default function CoupleResultPage() {
             locale={locale}
           />
         </div>
-
-        {/* Ads: after all content, before retake */}
-        <AdBanner slot="couple-top" className="mt-12" />
-        <AdBanner slot="couple-bottom" className="mt-6" />
 
         {/* Retake button */}
         <div className="mt-12 text-center">

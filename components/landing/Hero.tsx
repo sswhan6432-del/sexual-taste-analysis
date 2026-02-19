@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useQuizStore, type Difficulty } from "@/store/quizStore";
 import { t } from "@/lib/i18n";
-import AdBanner from "@/components/ads/AdBanner";
 
 const difficultyOptions: {
   key: Difficulty;
@@ -17,21 +16,21 @@ const difficultyOptions: {
 }[] = [
   {
     key: "beginner",
-    label: "첫경험",
+    label: "입문",
     labelEn: "First Time",
     questions: "12~20",
     time: "2min",
-    description: "당신의 욕망을 살짝 엿보는 입문",
-    descriptionEn: "A quick peek into your desires",
+    description: "당신의 성향을 처음 엿보는 입문",
+    descriptionEn: "A quick peek into your nature",
   },
   {
     key: "intermediate",
-    label: "중급자",
+    label: "심화",
     labelEn: "Experienced",
     questions: "24~40",
     time: "5min",
-    description: "침대 위 당신을 해부하는 심층 분석",
-    descriptionEn: "An in-depth analysis of your intimate self",
+    description: "당신의 내면을 탐구하는 심층 분석",
+    descriptionEn: "An in-depth analysis of your inner self",
   },
   {
     key: "expert",
@@ -39,8 +38,8 @@ const difficultyOptions: {
     labelEn: "Connoisseur",
     questions: "36~60",
     time: "10min",
-    description: "가장 은밀한 곳까지 완전한 탐색",
-    descriptionEn: "A full exploration to your deepest desires",
+    description: "가장 깊은 내면까지 완전한 탐색",
+    descriptionEn: "A full exploration of your deepest self",
   },
 ];
 
@@ -81,7 +80,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mb-4 text-xs font-normal uppercase tracking-[0.35em] text-gold/60"
         >
-          Intimate Archetype Discovery
+          Relationship Archetype Discovery
         </motion.p>
 
         <motion.h1
@@ -90,9 +89,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mb-6 text-5xl font-normal leading-tight tracking-tight sm:text-6xl md:text-7xl"
         >
-          <span className="text-text-primary">Sexual</span>
+          <span className="text-text-primary">Desire</span>
           <br />
-          <span className="font-normal italic text-gold">Taste</span>
+          <span className="font-normal italic text-gold">Compass</span>
           <br />
           <span className="text-text-primary">Analysis</span>
         </motion.h1>
@@ -201,10 +200,6 @@ export default function Hero() {
 
       </motion.div>
 
-      {/* Ad: home bottom — separated from main content */}
-      <div className="relative z-10 mt-20 pb-10">
-        <AdBanner slot="home-bottom" />
-      </div>
     </section>
   );
 }

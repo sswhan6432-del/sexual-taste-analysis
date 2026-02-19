@@ -3,24 +3,24 @@ export type Locale = "ko" | "en";
 const dictionary: Record<string, { ko: string; en: string }> = {
   // ─── AgeGate ───
   "age.title": {
-    ko: "성인 인증",
-    en: "Age Verification",
+    ko: "시작 전 확인",
+    en: "Before You Begin",
   },
   "age.subtitle": {
-    ko: "Age Verification Required",
-    en: "Age Verification Required",
+    ko: "Relationship Archetype Discovery",
+    en: "Relationship Archetype Discovery",
   },
   "age.description": {
-    ko: "본 사이트는 성인 전용 콘텐츠를 포함하고 있습니다.",
-    en: "This site contains adult-only content.",
+    ko: "본 테스트는 관계 역학과 심층 심리를 분석합니다.",
+    en: "This test explores relationship dynamics and deep psychology.",
   },
   "age.minimum": {
-    ko: "만 18세 이상만 이용 가능합니다.",
-    en: "You must be 18 or older to access.",
+    ko: "솔직하고 진지한 자기 탐색이 준비된 분께 권장합니다.",
+    en: "Recommended for those ready for honest self-reflection.",
   },
   "age.confirm": {
-    ko: "네, 만 18세 이상입니다",
-    en: "Yes, I am 18 or older",
+    ko: "네, 시작하겠습니다",
+    en: "Yes, I'm ready",
   },
   "age.deny": {
     ko: "아니오, 나가겠습니다",
@@ -29,12 +29,12 @@ const dictionary: Record<string, { ko: string; en: string }> = {
 
   // ─── Hero ───
   "hero.tagline": {
-    ko: "Intimate Archetype Discovery",
-    en: "Intimate Archetype Discovery",
+    ko: "Relationship Archetype Discovery",
+    en: "Relationship Archetype Discovery",
   },
   "hero.subtitle": {
-    ko: "당신의 은밀한 욕망을 12가지 아키타입으로 해부합니다",
-    en: "Discover your intimate desires through 12 archetypes",
+    ko: "당신의 관계 성향을 12가지 아키타입으로 탐색합니다",
+    en: "Discover your relationship style through 12 archetypes",
   },
   "hero.stats": {
     ko: "72 questions · 8 dimensions · 12 archetypes",
@@ -57,16 +57,16 @@ const dictionary: Record<string, { ko: string; en: string }> = {
     en: "Connoisseur",
   },
   "hero.beginner.desc": {
-    ko: "당신의 욕망을 살짝 엿보는 입문",
-    en: "A quick peek into your desires",
+    ko: "당신의 성향을 처음 엿보는 입문",
+    en: "A quick peek into your nature",
   },
   "hero.intermediate.desc": {
-    ko: "침대 위 당신을 해부하는 심층 분석",
-    en: "An in-depth analysis of your intimate self",
+    ko: "당신의 내면을 탐구하는 심층 분석",
+    en: "An in-depth analysis of your inner self",
   },
   "hero.expert.desc": {
-    ko: "가장 은밀한 곳까지 완전한 탐색",
-    en: "A full exploration to your deepest desires",
+    ko: "가장 깊은 내면까지 완전한 탐색",
+    en: "A full exploration of your deepest self",
   },
 
   // ─── CategorySelect ───
@@ -373,8 +373,8 @@ const dictionary: Record<string, { ko: string; en: string }> = {
     en: "Couple Quiz",
   },
   "couple.subtitle": {
-    ko: "두 사람의 성적 궁합을 분석합니다",
-    en: "Discover your intimate compatibility together",
+    ko: "두 사람의 관계 성향을 분석합니다",
+    en: "Discover your relationship compatibility together",
   },
   "couple.partner1": {
     ko: "파트너 1",
@@ -413,8 +413,8 @@ const dictionary: Record<string, { ko: string; en: string }> = {
     en: "8-Dimension Analysis",
   },
   "couple.result.style": {
-    ko: "BDSM 프로필 비교",
-    en: "BDSM Profile Comparison",
+    ko: "관계 성향 비교",
+    en: "Relationship Style Comparison",
   },
   "couple.result.strengths": {
     ko: "잘 맞는 영역",

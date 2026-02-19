@@ -18,7 +18,7 @@ export default function BdsmResult({ profile }: BdsmResultProps) {
       className="mx-auto max-w-md border border-gold/10 p-8"
     >
       <p className="mb-6 text-center text-[10px] font-normal uppercase tracking-[0.4em] text-gold/30">
-        BDSM Spectrum Analysis
+        Relationship Spectrum Analysis
       </p>
 
       {/* Role */}

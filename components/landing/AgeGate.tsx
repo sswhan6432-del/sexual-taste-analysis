@@ -64,14 +64,14 @@ export default function AgeGate({ children }: { children: React.ReactNode }) {
               className="mx-auto mb-10 h-px w-16 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
             />
 
-            {/* Warning icon */}
+            {/* Ornament */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="mb-6 text-3xl font-light text-gold/60"
             >
-              18+
+              ✦
             </motion.p>
 
             {/* Title */}
