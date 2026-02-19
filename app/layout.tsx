@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const siteUrl = "https://velvettest.space";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
       <body className="antialiased pt-14">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
