@@ -109,6 +109,27 @@ export default function ViralCard({
     window.open(xUrl, "_blank", "noopener,noreferrer,width=550,height=420");
   }, [archetype, bdsmProfile, locale]);
 
+  const handleShareFacebook = useCallback(() => {
+    const shareUrl = `${window.location.origin}/share/${archetype.id}`;
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank", "noopener,noreferrer,width=550,height=420");
+  }, [archetype.id]);
+
+  const handleShareKakao = useCallback(() => {
+    const name = locale === "en" ? archetype.nameEn : archetype.name;
+    const shareUrl = `${window.location.origin}/share/${archetype.id}`;
+    const text = `${name}\n${shareUrl}`;
+    if (navigator.share) {
+      navigator.share({ title: "Velvet Compass", text, url: shareUrl }).catch(() => navigator.clipboard.writeText(text));
+    } else {
+      navigator.clipboard.writeText(text);
+    }
+  }, [archetype, locale]);
+
+  const handleCopyLink = useCallback(() => {
+    const shareUrl = `${window.location.origin}/share/${archetype.id}`;
+    navigator.clipboard.writeText(shareUrl);
+  }, [archetype.id]);
+
   const handleShare = useCallback(async () => {
     const name = locale === "en" ? archetype.nameEn : archetype.name;
     const nameAlt = locale === "en" ? archetype.name : archetype.nameEn;
@@ -174,7 +195,7 @@ export default function ViralCard({
           {/* BDSM Role */}
           <div className="mb-6 text-center">
             <p className="mb-1 text-[9px] font-normal uppercase tracking-[0.4em] text-gold/30">
-              BDSM Spectrum
+              Relationship Spectrum
             </p>
             <p className="text-base font-medium text-text-primary">
               {locale === "en" ? bdsmProfile.roleEn : bdsmProfile.role}
@@ -389,7 +410,7 @@ export default function ViralCard({
           <div className="mt-8 text-center">
             <div className="mx-auto mb-3 h-px w-8 bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
             <p className="text-[8px] uppercase tracking-[0.4em] text-text-muted/25">
-              tastanalysis.com
+              velvettest.space
             </p>
           </div>
         </div>
@@ -399,34 +420,60 @@ export default function ViralCard({
       </div>
 
       {/* Action buttons */}
-      <div className="mx-auto mt-4 flex gap-3" style={{ maxWidth: CARD_WIDTH }}>
-        <motion.button
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={handleDownload}
-          className="flex-1 border border-gold/30 py-3 text-sm font-normal uppercase tracking-[0.15em] text-gold transition-all hover:border-gold/50 hover:bg-gold/[0.05]"
-        >
-          Save Image
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={handleShareX}
-          className="flex items-center justify-center gap-1.5 border border-white/[0.08] py-3 px-5 text-sm font-normal uppercase tracking-[0.15em] text-text-secondary transition-all hover:border-white/15 hover:bg-white/[0.03]"
-        >
-          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          Post
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={handleShare}
-          className="flex-1 border border-white/[0.06] py-3 text-sm font-normal uppercase tracking-[0.15em] text-text-secondary transition-all hover:border-white/10 hover:bg-white/[0.02]"
-        >
-          Share
-        </motion.button>
+      <div className="mx-auto mt-4 space-y-2" style={{ maxWidth: CARD_WIDTH }}>
+        {/* Row 1: Save + X */}
+        <div className="flex gap-2">
+          <motion.button
+            whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+            onClick={handleDownload}
+            className="flex-1 border border-gold/30 py-3 text-sm font-normal uppercase tracking-[0.15em] text-gold transition-all hover:border-gold/50 hover:bg-gold/[0.05]"
+          >
+            Save Image
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+            onClick={handleShareX}
+            className="flex items-center justify-center gap-1.5 border border-white/[0.08] px-5 py-3 text-sm font-normal uppercase tracking-[0.15em] text-text-secondary transition-all hover:border-white/15 hover:bg-white/[0.03]"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Post
+          </motion.button>
+        </div>
+        {/* Row 2: Facebook + KakaoTalk + Copy + Native */}
+        <div className="flex gap-2">
+          <motion.button
+            whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+            onClick={handleShareFacebook}
+            className="flex flex-1 items-center justify-center gap-1.5 border border-white/[0.06] py-2.5 text-xs font-normal uppercase tracking-wider text-text-secondary transition-all hover:border-white/10 hover:bg-white/[0.02]"
+          >
+            <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+            onClick={handleShareKakao}
+            className="flex flex-1 items-center justify-center gap-1.5 border border-white/[0.06] py-2.5 text-xs font-normal uppercase tracking-wider text-text-secondary transition-all hover:border-white/10 hover:bg-white/[0.02]"
+          >
+            <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3C6.477 3 2 6.477 2 11c0 2.834 1.595 5.354 4.07 6.952L5.333 21l3.69-1.965C9.629 19.334 10.8 19.5 12 19.5c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/>
+            </svg>
+            KakaoTalk
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+            onClick={handleCopyLink}
+            className="flex flex-1 items-center justify-center gap-1.5 border border-white/[0.06] py-2.5 text-xs font-normal uppercase tracking-wider text-text-secondary transition-all hover:border-white/10 hover:bg-white/[0.02]"
+          >
+            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+            </svg>
+            Copy
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );
