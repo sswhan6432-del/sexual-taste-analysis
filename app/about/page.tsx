@@ -22,10 +22,16 @@ export default function AboutPage() {
 
         <section>
           <h2 className="mb-3 text-lg font-normal text-text-primary">8가지 분석 차원</h2>
-          <p>
-            지배-복종, 가학-피학, 전환성, 속박, 감각, 전시-관음, 역할극, 페티시 등
-            8가지 차원에서 당신의 성향을 다각도로 분석합니다.
-          </p>
+          <ul className="list-disc space-y-2 pl-5">
+            <li><strong>주도성</strong> — 관계에서의 주도/수용 성향</li>
+            <li><strong>감성적 연결</strong> — 감정적 교감의 중요도</li>
+            <li><strong>모험성</strong> — 새로운 경험에 대한 개방성</li>
+            <li><strong>감각 선호</strong> — 감각적 자극의 선호도</li>
+            <li><strong>분위기</strong> — 상황과 환경의 중요도</li>
+            <li><strong>커뮤니케이션</strong> — 소통 방식 선호</li>
+            <li><strong>친밀감</strong> — 친밀도 깊이 선호</li>
+            <li><strong>판타지</strong> — 상상력과 창의적 탐구 성향</li>
+          </ul>
         </section>
 
         <section>
