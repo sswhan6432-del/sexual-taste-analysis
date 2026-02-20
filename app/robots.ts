@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://bdsmtest.space/sitemap.xml",
+    sitemap: "https://velvettest.space/sitemap.xml",
   };
 }
