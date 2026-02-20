@@ -64,10 +64,17 @@ export default function AboutPage() {
         <section>
           <h2 className="mb-3 text-lg font-normal text-text-primary">연락처</h2>
           <p>
-            문의사항이 있으시면{" "}
-            <a href="/contact" className="text-gold underline">Contact</a> 페이지를
-            이용해주세요.
+            문의사항이 있으시면 아래로 연락해주세요.
           </p>
+          <ul className="mt-2 space-y-1">
+            <li>
+              이메일:{" "}
+              <a href="mailto:sswhan6432@gmail.com" className="text-gold underline">
+                sswhan6432@gmail.com
+              </a>
+            </li>
+            <li>전화: 010-2224-6432</li>
+          </ul>
         </section>
       </div>
     </div>

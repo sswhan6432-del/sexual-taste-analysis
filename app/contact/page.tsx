@@ -46,9 +46,17 @@ export default function ContactPage() {
         <h1 className="mb-2 text-center text-2xl font-semibold tracking-wide text-gold">
           {t("contact.title", locale)}
         </h1>
-        <p className="mb-8 text-center text-[12px] tracking-wider text-text-muted">
+        <p className="mb-4 text-center text-[12px] tracking-wider text-text-muted">
           {t("contact.description", locale)}
         </p>
+        <div className="mb-8 space-y-1 text-center text-[12px] tracking-wider text-text-muted">
+          <p>
+            <a href="mailto:sswhan6432@gmail.com" className="text-gold/80 underline hover:text-gold">
+              sswhan6432@gmail.com
+            </a>
+          </p>
+          <p>010-2224-6432</p>
+        </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
