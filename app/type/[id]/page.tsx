@@ -42,7 +42,7 @@ export default async function TypeDetailPage({ params }: Props) {
     .map((cid) => archetypeMap[cid])
     .filter((a): a is NonNullable<typeof a> => Boolean(a));
 
-  const profile = archetype.profile as Record<string, number>;
+  const profile = archetype.profile as unknown as Record<string, number>;
 
   return (
     <main className="min-h-screen pb-20">
