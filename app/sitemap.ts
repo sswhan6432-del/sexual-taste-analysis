@@ -1,7 +1,15 @@
 import type { MetadataRoute } from "next";
+import { archetypes } from "@/lib/types";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://velvettest.space";
+
+  const typePages = archetypes.map((a) => ({
+    url: `${baseUrl}/type/${a.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
@@ -14,5 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    ...typePages,
   ];
 }
