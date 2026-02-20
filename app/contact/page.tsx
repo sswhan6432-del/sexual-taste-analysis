@@ -55,7 +55,6 @@ export default function ContactPage() {
               sswhan6432@gmail.com
             </a>
           </p>
-          <p>010-2224-6432</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">

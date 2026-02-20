@@ -73,7 +73,6 @@ export default function AboutPage() {
                 sswhan6432@gmail.com
               </a>
             </li>
-            <li>전화: 010-2224-6432</li>
           </ul>
         </section>
       </div>
