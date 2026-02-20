@@ -40,7 +40,9 @@ export default async function TypeDetailPage({ params }: Props) {
 
   const compatibleArchetypes = archetype.compatibleTypes
     .map((cid) => archetypeMap[cid])
-    .filter(Boolean);
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
+
+  const profile = archetype.profile as Record<string, number>;
 
   return (
     <main className="min-h-screen pb-20">
@@ -76,7 +78,7 @@ export default async function TypeDetailPage({ params }: Props) {
           <h2 className="mb-5 text-[10px] uppercase tracking-[0.3em] text-gold/50">Relationship Profile</h2>
           <div className="space-y-5">
             {dimensions.map((dim) => {
-              const value = archetype.profile[dim.key as keyof typeof archetype.profile];
+              const value = profile[dim.key] ?? 0;
               return (
                 <div key={dim.key}>
                   <div className="mb-1.5 flex items-center justify-between">
