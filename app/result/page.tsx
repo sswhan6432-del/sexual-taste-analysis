@@ -133,7 +133,7 @@ export default function ResultPage() {
           )}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 flex flex-col items-center gap-4">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -142,6 +142,14 @@ export default function ResultPage() {
           >
             {t("result.retake", locale)}
           </motion.button>
+          <a
+            href="https://archetypelist.space"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-gold/15 bg-gold/5 px-10 py-3 text-sm font-normal uppercase tracking-[0.2em] text-gold/70 transition-all hover:border-gold/30 hover:text-gold"
+          >
+            {locale === "ko" ? "다른 테스트 하러가기 →" : "Try Other Tests →"}
+          </a>
         </div>
       </motion.div>
     </main>
